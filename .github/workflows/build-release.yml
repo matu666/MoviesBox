@@ -26,7 +26,12 @@ jobs:
       with:
         java-version: '11'
         distribution: 'zulu'
-        
+    
+    - name: Check Cache Contents
+      run: ls -la ~/.gradle/caches
+    - name: Debug Cache Key
+      run: echo "Cache Key：${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}"
+
     # Restore Gradle Cache
     - name: Restore Gradle Cache
       uses: actions/cache/restore@v4
