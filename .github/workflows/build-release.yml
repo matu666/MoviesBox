@@ -26,7 +26,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'zulu'
-    
+   
+    - name: Initialize Gradle
+      run: ./gradlew --version
     - name: Check Cache Contents
       run: ls -la ~/.gradle/caches
     - name: Debug Cache Key
