@@ -35,8 +35,6 @@ jobs:
     - name: Check Gradle JDK version
       run: ./gradlew -version
       
-    - name: Check Cache Contents
-      run: ls -la ~/.gradle
     - name: Check and Create Cache Directory
       run: |
         if [ -d ~/.gradle/caches ]; then
@@ -45,7 +43,13 @@ jobs:
           echo "Cache directory does not exist, creating it now..."
           mkdir -p ~/.gradle/caches
         fi
-
+        
+    - name: List matched .gradle* files
+      run: |
+        echo "Listing all .gradle* files:"
+        find . -name "*.gradle*"
+        find . -name "gradle-wrapper.properties"
+        
     # Restore Gradle Cache
     - name: Restore Gradle Cache
       uses: actions/cache/restore@v4
@@ -70,6 +74,12 @@ jobs:
     - name: Build APK
       run: ./gradlew assembleRelease
 
+    - name: List matched .gradle* files
+      run: |
+        echo "Listing all .gradle* files:"
+        find . -name "*.gradle*"
+        find . -name "gradle-wrapper.properties"
+        
     # Save Gradle Cache
     - name: Save Gradle Cache
       uses: actions/cache/save@v4
