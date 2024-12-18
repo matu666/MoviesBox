@@ -37,8 +37,14 @@ jobs:
       
     - name: Check Cache Contents
       run: ls -la ~/.gradle
-    - name: Print Gradle Home
-      run: ./gradlew properties | grep "gradleUserHomeDir"
+    - name: Check and Create Cache Directory
+      run: |
+        if [ -d ~/.gradle/caches ]; then
+          echo "Cache directory exists"
+        else
+          echo "Cache directory does not exist, creating it now..."
+          mkdir -p ~/.gradle/caches
+        fi
 
     # Restore Gradle Cache
     - name: Restore Gradle Cache
