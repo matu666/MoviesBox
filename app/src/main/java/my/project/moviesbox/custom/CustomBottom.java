@@ -8,7 +8,7 @@ import android.os.Message;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
-import android.view.View;
+// import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
@@ -37,9 +37,9 @@ public class CustomBottom {
             popupWindowRef = new WeakReference<>(popupWindow);
             LayoutInflater inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View viewContent = inflater.inflate(R.layout.custom_bottom, null);
+            // View viewContent = inflater.inflate(R.layout.custom_bottom, null);
             popupWindow.setClippingEnabled(false);
-            popupWindow.setContentView(viewContent);
+            // popupWindow.setContentView(viewContent);
             popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
             popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
             /*if (Utils.checkHasNavigationBar(activity)) {
