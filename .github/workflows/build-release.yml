@@ -37,6 +37,8 @@ jobs:
       
     - name: Check Cache Contents
       run: ls -la ~/.gradle
+    - name: Print Gradle Home
+      run: ./gradlew properties | grep "gradleUserHomeDir"
 
     # Restore Gradle Cache
     - name: Restore Gradle Cache
