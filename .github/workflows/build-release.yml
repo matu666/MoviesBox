@@ -44,13 +44,6 @@ jobs:
     - name: Build APK
       run: ./gradlew assembleRelease
       
-    # Archive APK
-    - name: Upload APK to Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: my-app-release-apk
-        path: app/build/outputs/apk/release/*.apk
-        
     # Upload Release
     - name: Upload Release
       uses: softprops/action-gh-release@v1
