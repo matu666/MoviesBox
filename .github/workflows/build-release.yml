@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Ubuntu
     runs-on: ubuntu-latest
 
     steps:
