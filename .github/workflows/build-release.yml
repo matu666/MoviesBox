@@ -27,8 +27,14 @@ jobs:
         java-version: '11'
         distribution: 'zulu'
    
-    - name: Initialize Gradle
-      run: ./gradlew --version
+    # Grant execute permission for gradlew
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      
+    # Print Gradle JDK version
+    - name: Check Gradle JDK version
+      run: ./gradlew -version
+      
     - name: Check Cache Contents
       run: ls -la ~/.gradle/caches
     - name: Debug Cache Key
@@ -41,14 +47,6 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
-    # Grant execute permission for gradlew
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
-      
-    # Print Gradle JDK version
-    #- name: Check Gradle JDK version
-    #  run: ./gradlew -version
-    
     # Gradle dependencies
     # - name: Cache Gradle Dependencies
     #   uses: actions/cache@v4
