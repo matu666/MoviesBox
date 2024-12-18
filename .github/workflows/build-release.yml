@@ -26,6 +26,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
       
+    # Print Gradle JDK version
+    - name: Check Gradle JDK version
+      run: ./gradlew -version
+      
     # Cache Gradle dependencies
     - name: Cache Gradle Dependencies
       uses: actions/cache@v3
@@ -37,7 +41,7 @@ jobs:
 
     # Build APK
     - name: Build APK
-      run: ./gradlew assembleRelease
+      run: ./gradlew assembleRelease --stacktrace --info
 
     # Archive APK
     - name: Upload APK to Artifacts
