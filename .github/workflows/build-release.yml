@@ -62,6 +62,7 @@ jobs:
         file: ${{ steps.sign_release_apk.outputs.signedFile }}
         repo_token: ${{ secrets.TOKEN }}
         tag: ${{ github.ref_name }}
+        overwrite: true
 
     # - name: Upload Release
     #   uses: softprops/action-gh-release@v1
