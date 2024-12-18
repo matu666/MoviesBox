@@ -37,8 +37,6 @@ jobs:
       
     - name: Check Cache Contents
       run: ls -la ~/.gradle
-    - name: Debug Cache Key
-      run: echo "Cache Key：${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}"
 
     # Restore Gradle Cache
     - name: Restore Gradle Cache
@@ -46,7 +44,9 @@ jobs:
       with:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-
+        restore-keys: |
+          ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        
     # Gradle dependencies
     # - name: Cache Gradle Dependencies
     #   uses: actions/cache@v4
