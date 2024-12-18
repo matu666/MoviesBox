@@ -20,6 +20,15 @@ jobs:
       with:
         java-version: '11'
         distribution: 'zulu'
+        
+    # Restore Gradle Cache
+    - name: Restore Gradle Cache
+      uses: actions/cache/restore@v4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
 
     # Grant execute permission for gradlew
     - name: Grant execute permission for gradlew
@@ -28,20 +37,27 @@ jobs:
     # Print Gradle JDK version
     #- name: Check Gradle JDK version
     #  run: ./gradlew -version
-      
-    # Cache Gradle dependencies
-    - name: Cache Gradle Dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+    
+    # Gradle dependencies
+    # - name: Cache Gradle Dependencies
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.gradle/caches
+    #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gradle-
 
     # Build APK
     # --stacktrace --info
     - name: Build APK
       run: ./gradlew assembleRelease
+
+    # Save Gradle Cache
+    - name: Save Gradle Cache
+      uses: actions/cache/save@v4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
     # Sign APK
     - name: Sign APK
