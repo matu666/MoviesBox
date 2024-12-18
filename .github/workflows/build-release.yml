@@ -4,7 +4,13 @@ on:
   push:
     tags:
       - '*'
-
+  workflow_dispatch:
+      inputs:
+        tag_name:
+          description: 'Tag name for the release'
+          required: true
+          default: ''
+          
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -72,7 +78,7 @@ jobs:
     - name: Upload APK to Release
       uses: termux/upload-release-action@v4.2.0
       with:
-        asset_name: app-release-${{ github.event.release.tag_name || github.ref_name }}.apk
+        asset_name: app-release-${{ github.event.inputs.tag_name || github.ref_name }}.apk
         file: ${{ steps.sign_release_apk.outputs.signedFile }}
         repo_token: ${{ secrets.TOKEN }}
         tag: ${{ github.ref_name }}
