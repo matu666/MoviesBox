@@ -27,8 +27,8 @@ jobs:
       run: chmod +x ./gradlew
       
     # Print Gradle JDK version
-    - name: Check Gradle JDK version
-      run: ./gradlew -version
+    #- name: Check Gradle JDK version
+    #  run: ./gradlew -version
       
     # Cache Gradle dependencies
     - name: Cache Gradle Dependencies
@@ -40,9 +40,10 @@ jobs:
           ${{ runner.os }}-gradle-
 
     # Build APK
+    # --stacktrace --info
     - name: Build APK
-      run: ./gradlew assembleRelease --stacktrace --info
-
+      run: ./gradlew assembleRelease
+      
     # Archive APK
     - name: Upload APK to Artifacts
       uses: actions/upload-artifact@v3
