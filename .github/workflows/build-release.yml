@@ -36,7 +36,7 @@ jobs:
       run: ./gradlew -version
       
     - name: Check Cache Contents
-      run: ls -la ~/.gradle/caches
+      run: ls -la ~/.gradle
     - name: Debug Cache Key
       run: echo "Cache Key：${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}"
 
