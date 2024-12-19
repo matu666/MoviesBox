@@ -42,9 +42,12 @@ jobs:
         find . -name "gradle-wrapper.properties" >> gradle_files.txt
         cat gradle_files.txt
     - name: Generate hash
-      id: hash
       run: |
-        echo "::set-output name=hash::$(cat gradle_files.txt | xargs sha256sum | sha256sum | cut -d' ' -f1)"
+        # echo "::set-output name=hash::$(cat gradle_files.txt | xargs sha256sum | sha256sum | cut -d' ' -f1)"
+        FILES=$(cat gradle_files.txt)
+        HASH=$(echo "$FILES" | xargs sha256sum | sha256sum | cut -d' ' -f1)
+        echo "Generated hash: $HASH"
+        echo "HASH=$HASH" >> $GITHUB_ENV
         
     # Restore Gradle Cache
     # - name: Restore Gradle Cache
@@ -61,7 +64,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ steps.hash.outputs.hash }}
+        key: ${{ runner.os }}-gradle-${{ env.HASH }}
         restore-keys: |
           ${{ runner.os }}-gradle-
 
