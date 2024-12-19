@@ -38,8 +38,8 @@ jobs:
     - name: List matched .gradle* files
       run: |
         echo "Listing all .gradle* files:"
-        find . -name "*.gradle" -not -path "*/.gradle/*" > gradle_files.txt
-        find . -name "gradle-wrapper.properties" > gradle_files.txt
+        find . -name "*.gradle*" -not -path "*/.gradle/*" > gradle_files.txt
+        find . -name "gradle-wrapper.properties" >> gradle_files.txt
         cat gradle_files.txt
     - name: Generate hash
       id: hash
@@ -55,7 +55,6 @@ jobs:
         # key: ${{ runner.os }}-gradle-${{ steps.hash.outputs.hash }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-          ${{ runner.os }}-
         
     # Gradle dependencies
     # - name: Cache Gradle Dependencies
@@ -76,13 +75,6 @@ jobs:
         echo "Listing all .gradle* files:"
         find . -name "*.gradle*"
         find . -name "gradle-wrapper.properties"
-        
-    # Save Gradle Cache
-    - name: Save Gradle Cache
-      uses: actions/cache/save@v4
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/gradle-wrapper.properties') }}
 
     # Sign APK
     - name: Sign APK
